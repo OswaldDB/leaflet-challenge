@@ -18,12 +18,18 @@ L.tileLayer("https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_toke
 d3.json(queryUrl, function(data) {
     for (i in data.features) {
         var quake = data.features[i]
-        var location = [quake.geometry.coordinates[0], quake.geometry.coordinates[1]]
+        var location = [quake.geometry.coordinates[1], quake.geometry.coordinates[0]]
         var depth = quake.geometry.coordinates[2]
         var magnitude = quake.properties.mag
         var place = quake.properties.place
         var time = new Date(quake.properties.time)
-        console.log(magnitude + " " + time)
+        console.log(depth)
+        L.circle(location, {
+            fillOpacity: 0.67,
+            color: "black",
+            fillColor: "purple",
+            radius: magnitude * 30000
+          }).bindPopup("<h1>" + magnitude + "</h1>").addTo(myMap);
     }
 })
 
