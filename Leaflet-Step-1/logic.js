@@ -54,7 +54,14 @@ d3.json(queryUrl, function(data) {
         }).bindPopup("<h3>Location: " + place + "</h3><h3>Time: " + time + "</h3><h3>Magnitude: " + magnitude + "</h3><h3>Depth: " + depth + "</h3>").addTo(myMap);
   }
   // Build legend
-
-
+  var legend = L.control({ position: "topleft" });
+  legend.onAdd = function() {
+    var div = L.DomUtil.create("div", "info legend");
+    var legendInfo = "<h1>Earthquake Depth</h1><h2>0 to 20: Yellow</h2><h2>20 to 50: Orange</h2><h2>50 to 100: Red</h2><h2>100 to 200: Purple</h2><h2>200 to 500: Blue</h2><h2>500 and up: Green</h2>"
+    div.innerHTML = legendInfo;
+    return div;
+  };
+  // Adding legend to the map
+  legend.addTo(myMap);
 })
 
